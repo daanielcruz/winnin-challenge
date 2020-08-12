@@ -117,10 +117,10 @@ export const ViewMore = styled.a`
   cursor: ${({ isLast }: { isLast: boolean }) => (isLast ? 'none' : 'pointer')};
 
   background: ${({ isLast }: { isLast: boolean }) =>
-    isLast ? 'rgba(112,112, 112, 0.2)' : 'var(--color-primary)'};
+    isLast ? '#cccccc' : 'var(--color-primary)'};
 
   color: ${({ isLast }: { isLast: boolean }) =>
-    isLast ? 'var(--color-primary-darker)' : 'var(--color-text)'};
+    isLast ? 'var(--color-primary)' : 'var(--color-text)'};
 
   @media (min-width: 700px) {
     height: 2.8rem;
