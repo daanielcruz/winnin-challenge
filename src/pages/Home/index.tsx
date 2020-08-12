@@ -36,9 +36,11 @@ const Home = () => {
     async function getDataAsync() {
       setLoading(true);
       try {
+        let limit;
+        currentPage === 'hot' ? (limit = 8) : (limit = 10);
         const { data: response } = await api.get(currentPage, {
           params: {
-            limit: 8,
+            limit,
           },
         });
         setCurrentList(response.data.children);
