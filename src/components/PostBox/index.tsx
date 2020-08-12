@@ -1,4 +1,6 @@
 import React from 'react';
+import moment from 'moment';
+import 'moment/locale/pt-br';
 
 import noThumb from '../../assets/nothumb.jpg';
 
@@ -14,7 +16,7 @@ import {
 interface iPost {
   thumbnail: string;
   title: string;
-  hoursAgo: string;
+  created_utc: number;
   author: string;
   url: string;
   thumbnail_height: number;
@@ -24,7 +26,11 @@ interface iPost {
 interface iProps {
   post: iPost;
 }
+
 const PostBox: React.FC<iProps> = ({ post }) => {
+  const dateFromTimestamp = new Date(post.created_utc * 1000);
+  const momentsAgo = moment(dateFromTimestamp).locale('pt-br').fromNow();
+
   return (
     <PostContainer>
       <Thumbnail
@@ -35,7 +41,7 @@ const PostBox: React.FC<iProps> = ({ post }) => {
         <Title>{post.title}</Title>
 
         <PostInfo>
-          enviado a x horas <strong>por</strong>
+          enviado {momentsAgo} <strong>por</strong>
           <span> {post.author}</span>
         </PostInfo>
 

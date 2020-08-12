@@ -18,7 +18,7 @@ import PostBox from '../../components/PostBox';
 interface iPost {
   thumbnail: string;
   title: string;
-  hoursAgo: string;
+  created: string;
   author: string;
   url: string;
   thumbnail_height: number;
@@ -35,29 +35,37 @@ const Home = () => {
   useEffect(() => {
     async function getDataAsync() {
       setLoading(true);
-      const { data: response } = await api.get(currentPage, {
-        params: {
-          limit: 8,
-        },
-      });
-      setCurrentList(response.data.children);
-      setAfter(response.data.after);
-      setLoading(false);
+      try {
+        const { data: response } = await api.get(currentPage, {
+          params: {
+            limit: 8,
+          },
+        });
+        setCurrentList(response.data.children);
+        setAfter(response.data.after);
+        setLoading(false);
+      } catch (e) {
+        alert("something's wrong!");
+      }
     }
     getDataAsync();
   }, [currentPage]);
 
   async function viewMoreAsync() {
     setAfterLoding(true);
-    const { data: response } = await api.get(currentPage, {
-      params: {
-        limit: 10,
-        after,
-      },
-    });
-    setCurrentList((state: iPost[]) => [...state, ...response.data.children]);
-    setAfter(response.data.after);
-    setAfterLoding(false);
+    try {
+      const { data: response } = await api.get(currentPage, {
+        params: {
+          limit: 10,
+          after,
+        },
+      });
+      setCurrentList((state: iPost[]) => [...state, ...response.data.children]);
+      setAfter(response.data.after);
+      setAfterLoding(false);
+    } catch (e) {
+      alert("something's wrong!");
+    }
   }
 
   function handleSetCurrentPage(page: string) {

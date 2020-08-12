@@ -20,10 +20,9 @@ export const InfoBox = styled.div``;
 export const Title = styled.div`
   font: bold 0.7rem Roboto;
   color: var(--color-primary-dark);
-
+  margin-bottom: 0.3rem;
   @media (min-width: 700px) {
     font: bold 1.2rem Roboto;
-    margin-bottom: 0.3rem;
   }
 `;
 
@@ -36,10 +35,9 @@ export const PostInfo = styled.div`
   > span {
     color: var(--color-secundary);
   }
-
+  margin-bottom: 0.3rem;
   @media (min-width: 700px) {
     font: 400 0.9rem Roboto;
-    margin-bottom: 0.3rem;
   }
 `;
 
