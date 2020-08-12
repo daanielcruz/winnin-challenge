@@ -1,6 +1,6 @@
 ## :computer: Desafio Winnin - Reddit API
 
-Este repo é parte do processo seletivo da Winnin.
+Este repo faz parte do processo seletivo da Winnin.
 
 ## :question: Como executar
 
