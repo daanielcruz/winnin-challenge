@@ -31,6 +31,12 @@ const PostBox: React.FC<iProps> = ({ post }) => {
   const dateFromTimestamp = new Date(post.created_utc * 1000);
   const momentsAgo = moment(dateFromTimestamp).locale('pt-br').fromNow();
 
+  function catchDomainFromUrl(url: string) {
+    const regExp = /^(?:https?:\/\/)?(?:[^@\/\n]+@)?(?:www\.)?([^:\/?\n]+)/;
+    const match = url.match(regExp);
+    if (match !== null) return match[1];
+  }
+
   return (
     <PostContainer>
       <Thumbnail
@@ -46,7 +52,7 @@ const PostBox: React.FC<iProps> = ({ post }) => {
         </PostInfo>
 
         <PostUrl href={post.url} target="_blank" rel="noopener noreferrer">
-          reddit.com
+          {catchDomainFromUrl(post.url)}
         </PostUrl>
       </InfoBox>
     </PostContainer>
