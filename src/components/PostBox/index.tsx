@@ -32,7 +32,7 @@ const PostBox: React.FC<iProps> = ({ post }) => {
   const momentsAgo = moment(dateFromTimestamp).locale('pt-br').fromNow();
 
   function catchDomainFromUrl(url: string) {
-    const regExp = /^(?:https?:\/\/)?(?:[^@\/\n]+@)?(?:www\.)?([^:\/?\n]+)/;
+    const regExp = /^(?:https?:\/\/)?(?:[^@\n]+@)?(?:www\.)?([^:/?\n]+)/;
     const match = url.match(regExp);
     if (match !== null) return match[1];
   }

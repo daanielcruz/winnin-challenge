@@ -31,6 +31,7 @@ const Home = () => {
   const [loading, setLoading] = useState(true);
   const [after, setAfter] = useState('');
   const [afterLoading, setAfterLoding] = useState(false);
+  const [isLastPage, setIsLastPage] = useState(false);
 
   useEffect(() => {
     async function getDataAsync() {
@@ -63,6 +64,7 @@ const Home = () => {
         },
       });
       setCurrentList((state: iPost[]) => [...state, ...response.data.children]);
+      if (response.data.after === null) setIsLastPage(true);
       setAfter(response.data.after);
       setAfterLoding(false);
     } catch (e) {
@@ -71,6 +73,7 @@ const Home = () => {
   }
 
   function handleSetCurrentPage(page: string) {
+    setIsLastPage(false);
     setCurrentPage(page);
   }
 
@@ -119,7 +122,11 @@ const Home = () => {
         )}
 
         <div style={{ display: 'flex', flex: 1 }}>
-          <ViewMore onClick={viewMoreAsync}>+ Ver mais</ViewMore>
+          <ViewMore onClick={viewMoreAsync} isLast={isLastPage}>
+            {isLastPage
+              ? `Última postagem em ${currentPage} alcançada!`
+              : '+ Ver mais'}
+          </ViewMore>
         </div>
       </Main>
     </Container>

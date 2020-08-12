@@ -25,8 +25,6 @@ body,
 body {
   background: var(--color-background);
 }
-
-
 `;
 
 export default GlobalStyle;

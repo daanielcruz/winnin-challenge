@@ -102,16 +102,25 @@ export const ViewMore = styled.a`
   flex: 1;
   align-items: center;
   justify-content: center;
-  cursor: pointer;
   padding: 0.5rem;
   width: 100%;
   margin: 0.8rem 0.2rem;
   border-radius: 6px;
-  background: var(--color-primary);
   text-decoration: none;
-  color: var(--color-text);
+
   font: bold 0.8rem Roboto;
   transition: 0.4s;
+
+  pointer-events: ${({ isLast }: { isLast: boolean }) =>
+    isLast ? 'none' : 'initial'};
+
+  cursor: ${({ isLast }: { isLast: boolean }) => (isLast ? 'none' : 'pointer')};
+
+  background: ${({ isLast }: { isLast: boolean }) =>
+    isLast ? 'rgba(112,112, 112, 0.2)' : 'var(--color-primary)'};
+
+  color: ${({ isLast }: { isLast: boolean }) =>
+    isLast ? 'var(--color-primary-darker)' : 'var(--color-text)'};
 
   @media (min-width: 700px) {
     height: 2.8rem;
