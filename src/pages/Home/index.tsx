@@ -18,16 +18,20 @@ import PostBox from '../../components/PostBox';
 interface iPost {
   thumbnail: string;
   title: string;
-  created: string;
+  created_utc: string;
   author: string;
   url: string;
   thumbnail_height: number;
   id: string;
 }
 
+interface iCurrentList {
+  data: iPost;
+}
+
 const Home = () => {
   const [currentPage, setCurrentPage] = useState('hot');
-  const [currentList, setCurrentList] = useState<iPost[]>([]);
+  const [currentList, setCurrentList] = useState<iCurrentList[]>([]);
   const [loading, setLoading] = useState(true);
   const [after, setAfter] = useState('');
   const [afterLoading, setAfterLoding] = useState(false);
@@ -57,16 +61,25 @@ const Home = () => {
   async function viewMoreAsync() {
     setAfterLoding(true);
     try {
+      const postId = document.getElementById(
+        currentList[currentList.length - 1].data.id,
+      );
       const { data: response } = await api.get(currentPage, {
         params: {
           limit: 10,
           after,
         },
       });
-      setCurrentList((state: iPost[]) => [...state, ...response.data.children]);
+      setCurrentList((state: iCurrentList[]) => [
+        ...state,
+        ...response.data.children,
+      ]);
       if (response.data.after === null) setIsLastPage(true);
       setAfter(response.data.after);
       setAfterLoding(false);
+
+      if (postId !== null)
+        window.scrollTo({ top: postId.offsetTop, behavior: 'smooth' });
     } catch (e) {
       alert("something's wrong!");
     }

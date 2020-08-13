@@ -38,7 +38,7 @@ const PostBox: React.FC<iProps> = ({ post }) => {
   }
 
   return (
-    <PostContainer>
+    <PostContainer id={post.id}>
       <Thumbnail
         src={post.thumbnail_height ? post.thumbnail : noThumb}
         alt=""
