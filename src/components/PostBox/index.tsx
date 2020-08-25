@@ -17,6 +17,7 @@ interface iPost {
   thumbnail: string;
   title: string;
   created_utc: number;
+  domain: string;
   author: string;
   url: string;
   thumbnail_height: number;
@@ -31,17 +32,17 @@ const PostBox: React.FC<iProps> = ({ post }) => {
   const dateFromTimestamp = new Date(post.created_utc * 1000);
   const momentsAgo = moment(dateFromTimestamp).locale('pt-br').fromNow();
 
-  function catchDomainFromUrl(url: string) {
+  /*  function catchDomainFromUrl(url: string) {
     const regExp = /^(?:https?:\/\/)?(?:[^@\n]+@)?(?:www\.)?([^:/?\n]+)/;
     const match = url.match(regExp);
     if (match !== null) return match[1];
-  }
+  } */
 
   return (
     <PostContainer id={post.id}>
       <Thumbnail
         src={post.thumbnail_height ? post.thumbnail : noThumb}
-        alt=""
+        alt="Thumbnail"
       />
       <InfoBox>
         <Title>{post.title}</Title>
@@ -52,7 +53,7 @@ const PostBox: React.FC<iProps> = ({ post }) => {
         </PostInfo>
 
         <PostUrl href={post.url} target="_blank" rel="noopener noreferrer">
-          {catchDomainFromUrl(post.url)}
+          {post.domain}
         </PostUrl>
       </InfoBox>
     </PostContainer>

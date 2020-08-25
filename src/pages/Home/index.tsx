@@ -18,7 +18,8 @@ import PostBox from '../../components/PostBox';
 interface iPost {
   thumbnail: string;
   title: string;
-  created_utc: string;
+  created_utc: number;
+  domain: string;
   author: string;
   url: string;
   thumbnail_height: number;
@@ -34,7 +35,7 @@ const Home = () => {
   const [currentList, setCurrentList] = useState<iCurrentList[]>([]);
   const [loading, setLoading] = useState(true);
   const [after, setAfter] = useState('');
-  const [afterLoading, setAfterLoding] = useState(false);
+  const [afterLoading, setAfterLoading] = useState(false);
   const [isLastPage, setIsLastPage] = useState(false);
 
   useEffect(() => {
@@ -59,7 +60,7 @@ const Home = () => {
   }, [currentPage]);
 
   async function viewMoreAsync() {
-    setAfterLoding(true);
+    setAfterLoading(true);
     try {
       const postId = document.getElementById(
         currentList[currentList.length - 1].data.id,
@@ -74,11 +75,11 @@ const Home = () => {
         ...state,
         ...response.data.children,
       ]);
-      if (response.data.after === null) setIsLastPage(true);
+      if (!response.data.after) setIsLastPage(true);
       setAfter(response.data.after);
-      setAfterLoding(false);
+      setAfterLoading(false);
 
-      if (postId !== null)
+      if (postId)
         window.scrollTo({ top: postId.offsetTop, behavior: 'smooth' });
     } catch (e) {
       alert("something's wrong!");
